@@ -1,0 +1,21 @@
+.navigation_container {
+  padding: 15px 80px;
+  display: flex;
+  justify-content: space-between;
+  background-color: brown;
+
+  .navigation_links-container {
+    width: 10%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .navigation_navlinks {
+    color: white;
+    font-weight: bold;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+}
