@@ -1,8 +1,20 @@
 import { Link, Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import Button from "../Button/Button";
+import CartDropdown from "../CartDropdown/CartDropdown";
+
+import { setIsCartOpen } from "../../store/cart/cartActions";
+import { selectIsCartOpen } from "../../store/cart/cartSelectors";
 
 import "./Navigation.scss";
 
 const Navigation = () => {
+  const isCartOpen = useSelector(selectIsCartOpen);
+  const dispatch = useDispatch();
+  const handleCartClick = (e) => {
+    dispatch(setIsCartOpen());
+  };
   return (
     <>
       <div className="navigation_container">
@@ -13,11 +25,10 @@ const Navigation = () => {
           <Link className="navigation_navlinks" to="/auth">
             Sign In
           </Link>
-          <Link className="navigation_navlinks" to="/checkout">
-            Cart
-          </Link>
+          <Button onClick={handleCartClick}>Cart</Button>
         </div>
       </div>
+      {isCartOpen && <CartDropdown />}
       <Outlet />
     </>
   );

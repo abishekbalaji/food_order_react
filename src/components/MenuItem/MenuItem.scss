@@ -2,10 +2,14 @@
   display: flex;
   flex-direction: row;
   color: black;
-  padding: 20px;
   align-items: center;
+  padding: 20px  0 20px 0;
   justify-content: space-between;
   border-bottom: 1px solid black;
+
+  &:last-of-type {
+    border: none;
+  }
   
 
   .menu-item_left,

@@ -1,9 +1,31 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Button from "../Button/Button";
 import FormInput from "../FormInput/FormInput";
-import "./MenuItem.scss";
 
-const MenuItem = ({ title, subtitle, price }) => {
-  const handleInputChange = (e) => {};
+import { addItemToCart } from "../../store/cart/cartActions";
+import { selectCartItems } from "../../store/cart/cartSelectors";
+
+import "./MenuItem.scss";
+import { useSelector } from "react-redux";
+
+const MenuItem = ({ menuItem }) => {
+  const { title, subtitle, price, quantity } = menuItem;
+  const [amount, setAmount] = useState(quantity);
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setAmount(value);
+  };
+
+  const handleAddBtnClick = (e) => {
+    dispatch(addItemToCart(cartItems, { ...menuItem, quantity: amount }));
+    setAmount(0)
+  };
+
   return (
     <div className="menu-item_container">
       <div className="menu-item_left">
@@ -15,12 +37,15 @@ const MenuItem = ({ title, subtitle, price }) => {
         <FormInput
           label="Amount"
           name="amount"
-          value={1}
+          value={amount}
           type="number"
+          min={0}
           required
           onChange={handleInputChange}
         />
-        <Button type="submit">+Add</Button>
+        <Button onClick={handleAddBtnClick} type="button">
+          +Add
+        </Button>
       </div>
     </div>
   );
